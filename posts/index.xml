@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Posts on Jay</title>
+    <title>Posts on Jay Ovalle</title>
     <link>https://jovalle.github.io/posts/</link>
-    <description>Recent content in Posts on Jay</description>
+    <description>Recent content in Posts on Jay Ovalle</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 22 Nov 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jovalle.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Thu, 09 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://jovalle.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Multi-cluster HAProxy</title>
+      <link>https://jovalle.github.io/posts/multi-cluster-haproxy/</link>
+      <pubDate>Thu, 09 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://jovalle.github.io/posts/multi-cluster-haproxy/</guid>
+      <description>HAProxy is a very powerful load balancer and reverse proxy. Honestly, I have not given it the time of day since the ol&amp;rsquo; days (when Nginx was the one to beat) and since then have grown to prefer Traefik. Traefik is simple to set up, versatile when you need it to be and its ubiquity is unmatched. It is even built into K3s!
+Speaking of K3s, I currently run two Kubernetes clusters in my homelab both leveraging K3s and Traefik.</description>
+    </item>
     
     <item>
-      <title>KubeCon San Diego</title>
+      <title>KubeCon San Diego 2019</title>
       <link>https://jovalle.github.io/posts/kubecon-san-diego/</link>
       <pubDate>Fri, 22 Nov 2019 00:00:00 +0000</pubDate>
       
