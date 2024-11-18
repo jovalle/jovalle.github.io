@@ -6,8 +6,206 @@
     <description>Recent content in Posts on Infrastructure Engineer @ JPMorganChase</description>
     <generator>Hugo -- 0.138.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 Nov 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://jovalle.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KubeCon Day Three Recap - The Finale</title>
+      <link>https://jovalle.github.io/posts/kubecon-salt-lake-city-day-three/</link>
+      <pubDate>Fri, 15 Nov 2024 00:00:00 +0000</pubDate>
+      <guid>https://jovalle.github.io/posts/kubecon-salt-lake-city-day-three/</guid>
+      <description>&lt;h2 id=&#34;sessions-of-the-day&#34;&gt;Sessions of the Day&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Securing Outgoing Traffic: Building a Powerful Internet Egress Gateway for Reliable Connectivity&lt;/li&gt;
+&lt;li&gt;Seeing Double? Implementing Multicast with eBPF and Cilium&lt;/li&gt;
+&lt;li&gt;Testing Kubernetes Without Kubernetes: A Networking Deep Dive&lt;/li&gt;
+&lt;li&gt;Thousands of Gamers, One Kubernetes Network&lt;/li&gt;
+&lt;li&gt;Topology Aware Routing: Understanding the Tradeoffs&lt;/li&gt;
+&lt;li&gt;Goodbye etcd! Running Kubernetes on Distributed PostgreSQL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;multicast-with-ebpf-and-cilium&#34;&gt;Multicast with eBPF and Cilium&lt;/h2&gt;
+&lt;p&gt;Cilium&amp;rsquo;s multicast support is in beta (at the time of writing). I believe the host of this talk is leading the delivery
+of said feature set.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>KubeCon Day Two Recap - Swagalicious</title>
+      <link>https://jovalle.github.io/posts/kubecon-salt-lake-city-day-two/</link>
+      <pubDate>Thu, 14 Nov 2024 00:00:00 +0000</pubDate>
+      <guid>https://jovalle.github.io/posts/kubecon-salt-lake-city-day-two/</guid>
+      <description>&lt;h2 id=&#34;award-show&#34;&gt;Award Show&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Adobe, over 5000 contributions to CNCF projects 🥇&lt;/li&gt;
+&lt;li&gt;Capital One, cloud-native banking 🏦&lt;/li&gt;
+&lt;li&gt;Reddit, a clear member of the CNCF subreddit 😉&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;todays-sessions&#34;&gt;Today&amp;rsquo;s Sessions&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Yahoo’s Kubernetes Journey from on-Prem to Multi-Cloud at Scale&lt;/li&gt;
+&lt;li&gt;CNCF TAG Network: Intro &amp;amp; Deep Dive&lt;/li&gt;
+&lt;li&gt;Kubernetes SIG Meet and Greet Lunch &amp;amp; Learn&lt;/li&gt;
+&lt;li&gt;How the Tables Have Turned: Kubernetes Says Goodbye to Iptables&lt;/li&gt;
+&lt;li&gt;Kubernetes Multi-Cluster Networking 101 (IDK why I attended this 😅)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;favorite-session-of-the-day&#34;&gt;Favorite Session of the Day&lt;/h2&gt;
+&lt;h3 id=&#34;how-the-tables-have-turned&#34;&gt;How the Tables Have Turned&lt;/h3&gt;
+&lt;p&gt;&lt;img alt=&#34;iptables-nft&#34; loading=&#34;lazy&#34; src=&#34;https://jovalle.github.io/images/kubecon-salt-lake-city/iptables-nft.png&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>KubeCon Day One Recap - Sponsored by AI</title>
+      <link>https://jovalle.github.io/posts/kubecon-salt-lake-city-day-one/</link>
+      <pubDate>Wed, 13 Nov 2024 00:00:00 +0000</pubDate>
+      <guid>https://jovalle.github.io/posts/kubecon-salt-lake-city-day-one/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;KubeCon Kick-off&#34; loading=&#34;lazy&#34; src=&#34;https://jovalle.github.io/images/kubecon-salt-lake-city/kubecon-kickoff.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The main event begins! Outside of the initial advisory on combatting patent trolls and the war the CNCF is waging against
+them, the keynotes were underwhelming.&lt;/p&gt;
+&lt;p&gt;Much sponsored AI talk. Exhibit A:&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;AI Generated Imagery&#34; loading=&#34;lazy&#34; src=&#34;https://jovalle.github.io/images/kubecon-salt-lake-city/ai-generated.JPG&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The Solutions Showcase hall was massive and buzzing with traffic. Countless vendors, learning booths, research presentations.&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;Solutions Showcase floor&#34; loading=&#34;lazy&#34; src=&#34;https://jovalle.github.io/images/kubecon-salt-lake-city/solutions-showcase.JPG&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;todays-sessions&#34;&gt;Today&amp;rsquo;s Sessions&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;SIG Network Intro and Updates&lt;/li&gt;
+&lt;li&gt;Best Friends Keep No Secrets: Going Secretless with cert-manager&lt;/li&gt;
+&lt;li&gt;Cilium, eBPF, WireGuard: Can We Tame the Network Encryption Performance Gap?&lt;/li&gt;
+&lt;li&gt;Life of a Packet: Ambient Edition&lt;/li&gt;
+&lt;li&gt;CNI Updates and Direction!&lt;/li&gt;
+&lt;li&gt;Creating Paved Paths for Platform Engineers&lt;/li&gt;
+&lt;li&gt;🪧 Poster Session (PS08): Unveiling Anomalies: eBPF-Based Detection in High-Volume Encrypted Network Traffic&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;session-highlights&#34;&gt;Session Highlights&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;SIG Networking.
+&lt;ul&gt;
+&lt;li&gt;Network Policy Enhancement Proposals (NPEPs)
+&lt;ul&gt;
+&lt;li&gt;FQDN support!&lt;/li&gt;
+&lt;li&gt;AdminNetworkPolicy
+&lt;ul&gt;
+&lt;li&gt;Global &amp;ldquo;tier&amp;rdquo; ahead of NetworkPolicy&lt;/li&gt;
+&lt;li&gt;No implicit deny; no match fall through&lt;/li&gt;
+&lt;li&gt;Explicit Allow/Pass/Deny&lt;/li&gt;
+&lt;li&gt;Implemented by Antrea, OVN, Calico, KubeOVN, kube-network-policies (Cilium in the roadmap)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;BaselineAdminNetworkPolicy
+&lt;ul&gt;
+&lt;li&gt;Singleton policy&lt;/li&gt;
+&lt;li&gt;Applies only if no netpols apply to workload
+&lt;ul&gt;
+&lt;li&gt;Replaces &amp;ldquo;allow by default&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Tenant Isolation&lt;/li&gt;
+&lt;li&gt;Policy Assistant
+&lt;ul&gt;
+&lt;li&gt;policy simulation tool&lt;/li&gt;
+&lt;li&gt;can get policy/pods/etc from&lt;/li&gt;
+&lt;li&gt;cluster&lt;/li&gt;
+&lt;li&gt;nodes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Had a great conversation with Casey Davenport and Shaun Crompton of Tigera about SIG dynamics and the contributor track&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Daniel Borkmann, one of the talents at Isovalent, showcased enhancements to Wireguard encryption performance in Cilium
+&lt;ul&gt;
+&lt;li&gt;IPSec is more performant but harder to manage (key rotations)&lt;/li&gt;
+&lt;li&gt;Wireguard is relatively simple in design (resembling that of SSH), innate auto-rotation of keys, supports L3&lt;/li&gt;
+&lt;li&gt;Cilium handles key rotations via annotations&lt;/li&gt;
+&lt;li&gt;CPU pinning! Essential for consistent benchmarking.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;CNI Updates &amp;amp; Direction for 2.0!
+&lt;ul&gt;
+&lt;li&gt;Plugin status reporting!!! 🥳 Finally, the CNI will be able to control node readiness based on IP addr exhaustion
+or daemon errors&lt;/li&gt;
+&lt;li&gt;Device interaction standardization (attaching multiple NICs and consistent handling of device resources)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;argo-ready-to-drive-us-literally&#34;&gt;Argo Ready To Drive Us, Literally&lt;/h2&gt;
+&lt;p&gt;&lt;img alt=&#34;Argo Drive&#34; loading=&#34;lazy&#34; src=&#34;https://jovalle.github.io/images/kubecon-salt-lake-city/argo-mobility.jpeg&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Cilium &#43; eBPF Day</title>
+      <link>https://jovalle.github.io/posts/cilium-ebpf-day/</link>
+      <pubDate>Tue, 12 Nov 2024 00:00:00 +0000</pubDate>
+      <guid>https://jovalle.github.io/posts/cilium-ebpf-day/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#starting-the-new-day&#34;&gt;Starting the New Day&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#kickoff-highlights&#34;&gt;Kickoff Highlights&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#standout-talks&#34;&gt;Standout Talks&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#how-to-use-xdp-and-ebpf-to-accelerate-ipsec-throughput-by-400&#34;&gt;How to Use XDP and eBPF to Accelerate IPSec Throughput by 400%&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#live-migrating-production-clusters-from-calico-to-cilium&#34;&gt;Live Migrating Production Clusters From Calico to Cilium&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#hubble-beyond-cilium&#34;&gt;Hubble Beyond Cilium&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;starting-the-new-day&#34;&gt;Starting the New Day&lt;/h2&gt;
+&lt;p&gt;&lt;img alt=&#34;First snow in SLC&#34; loading=&#34;lazy&#34; src=&#34;https://jovalle.github.io/images/kubecon-salt-lake-city/snowy-conditions.JPG&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Much of the snow did not stick to the floor but instead my hair and jacket. 😶‍🌫️&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;Welp&#34; loading=&#34;lazy&#34; src=&#34;https://jovalle.github.io/images/kubecon-salt-lake-city/jay-snow.JPG&#34;&gt;&lt;/p&gt;
+&lt;p&gt;As someone interested in eBPF, having researched and developed some eBPF programming, I was especially excited for this
+convention.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>WasmCon</title>
+      <link>https://jovalle.github.io/posts/wasmcon/</link>
+      <pubDate>Mon, 11 Nov 2024 00:00:00 +0000</pubDate>
+      <guid>https://jovalle.github.io/posts/wasmcon/</guid>
+      <description>&lt;p&gt;Cloud Native Rejekts is a two-day event but I unfortunately could not split my time between the two venues, especially
+given the distance between Kiln and the convention center. I decided to focus on WasmCon talks.&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;Venue for WasmCon and KubeCon&#34; loading=&#34;lazy&#34; src=&#34;https://jovalle.github.io/images/kubecon-salt-lake-city/convention-center-interior.JPG&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The event kicked off with a Choose Your Own Adventure workshop led by the folks at Cosmonic, the presumptive pioneers of
+WebAssembly (Wasm).&lt;/p&gt;
+&lt;p&gt;The workshop was jam packed with technologists from all around and the density was quickly felt as the wifi experience
+suffered tremendously. We were tasked with downloading a few tools like &lt;code&gt;wash&lt;/code&gt; and &lt;code&gt;wasm-tools&lt;/code&gt; to get started. The two
+totaled ~40MB and took me ~10min to procure. 😰 Maybe Wasm routers would have helped. 🤷🏽‍♂️😅 Once installed, we were off to
+the races. The provided boilerplate used &lt;code&gt;TinyGo&lt;/code&gt; (the only golang compiler currently supported by Wasm) to walk us
+through writing a cute dog image generator (Rasma, you missed out! 😄).&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Cloud Native Rejekts</title>
+      <link>https://jovalle.github.io/posts/cloud-native-rejekts/</link>
+      <pubDate>Sun, 10 Nov 2024 00:00:00 +0000</pubDate>
+      <guid>https://jovalle.github.io/posts/cloud-native-rejekts/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#what-is-cloud-native-rejekts&#34;&gt;What is Cloud Native Rejekts?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#venue&#34;&gt;Venue&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#notable-sessions&#34;&gt;Notable Sessions&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#malicious-compliance-automated-when-you-have-4000-vulnerabilities-and-only-24-hours-before-release&#34;&gt;Malicious Compliance Automated: When You Have 4000 Vulnerabilities and only 24 Hours Before Release&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#debug-like-a-pro-ephemeral-containers-and-wolfi-linux-in-action&#34;&gt;Debug Like a Pro: Ephemeral Containers and Wolfi Linux in Action&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#integrating-ebpf-superpowers-into-your-observability-tooling&#34;&gt;Integrating eBPF superpowers into your observability tooling&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#stateful-app-migration-with-zero-downtime&#34;&gt;Stateful App Migration with Zero Downtime&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#worthy-mentions&#34;&gt;Worthy Mentions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#social-connections&#34;&gt;Social Connections&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;what-is-cloud-native-rejekts&#34;&gt;What is Cloud Native Rejekts?&lt;/h2&gt;
+&lt;p&gt;A fantastic pre-KubeCon event showcasing the “rejected” but equally impactful talks. Each talk is up to 30min with 5min
+lightning talks sprinkled across the day.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>KubeCon NA 2024 in Salt Lake City</title>
+      <link>https://jovalle.github.io/posts/kubecon-salt-lake-city-day-zero/</link>
+      <pubDate>Sat, 09 Nov 2024 00:00:00 +0000</pubDate>
+      <guid>https://jovalle.github.io/posts/kubecon-salt-lake-city-day-zero/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;KubeCon in SLC&#34; loading=&#34;lazy&#34; src=&#34;https://jovalle.github.io/images/kubecon-salt-lake-city/slc-kubecon.JPG&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Welcome to my recap of this year’s Kubernetes Convention in Salt Lake City! I had the privilege of attending not only
+the main KubeCon event but also several satellite conferences that showcased the vibrant Cloud Native community. Here’s
+a day-by-day breakdown of my experiences, insights, and highlights.&lt;/p&gt;
+&lt;h2 id=&#34;day-0-arrival-in-salt-lake-city-saturday&#34;&gt;Day 0: Arrival in Salt Lake City (Saturday)&lt;/h2&gt;
+&lt;p&gt;The Journey Begins. We&amp;rsquo;re outside!&lt;/p&gt;
+&lt;p&gt;Bright and early I head to JFK and 4 short hours later find myself in Salt Lake City! Never been to Utah, or any western
+state outside of California and Texas, so I had high (pun-intended) expectations. The mountain views as we touched down
+were stunning!&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Multi-cluster HAProxy</title>
       <link>https://jovalle.github.io/posts/multi-cluster-haproxy/</link>
