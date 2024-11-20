@@ -2,45 +2,45 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://jovalle.github.io/</loc>
+    <loc>https://blog4j.me/</loc>
     <lastmod>2024-11-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://jovalle.github.io/posts/kubecon-salt-lake-city-day-three/</loc>
+    <loc>https://blog4j.me/posts/kubecon-salt-lake-city-day-three/</loc>
     <lastmod>2024-11-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://jovalle.github.io/posts/</loc>
+    <loc>https://blog4j.me/posts/</loc>
     <lastmod>2024-11-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://jovalle.github.io/posts/kubecon-salt-lake-city-day-two/</loc>
+    <loc>https://blog4j.me/posts/kubecon-salt-lake-city-day-two/</loc>
     <lastmod>2024-11-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://jovalle.github.io/posts/kubecon-salt-lake-city-day-one/</loc>
+    <loc>https://blog4j.me/posts/kubecon-salt-lake-city-day-one/</loc>
     <lastmod>2024-11-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://jovalle.github.io/posts/cilium-ebpf-day/</loc>
+    <loc>https://blog4j.me/posts/cilium-ebpf-day/</loc>
     <lastmod>2024-11-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://jovalle.github.io/posts/wasmcon/</loc>
+    <loc>https://blog4j.me/posts/wasmcon/</loc>
     <lastmod>2024-11-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://jovalle.github.io/posts/cloud-native-rejekts/</loc>
+    <loc>https://blog4j.me/posts/cloud-native-rejekts/</loc>
     <lastmod>2024-11-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://jovalle.github.io/posts/kubecon-salt-lake-city-day-zero/</loc>
+    <loc>https://blog4j.me/posts/kubecon-salt-lake-city/</loc>
     <lastmod>2024-11-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://jovalle.github.io/posts/multi-cluster-haproxy/</loc>
+    <loc>https://blog4j.me/posts/multi-cluster-haproxy/</loc>
     <lastmod>2022-06-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://jovalle.github.io/posts/kubecon-san-diego/</loc>
+    <loc>https://blog4j.me/posts/kubecon-san-diego/</loc>
     <lastmod>2019-11-22T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://jovalle.github.io/about/</loc>
+    <loc>https://blog4j.me/about/</loc>
   </url><url>
-    <loc>https://jovalle.github.io/archive/</loc>
+    <loc>https://blog4j.me/archive/</loc>
   </url><url>
-    <loc>https://jovalle.github.io/categories/</loc>
+    <loc>https://blog4j.me/categories/</loc>
   </url><url>
-    <loc>https://jovalle.github.io/tags/</loc>
+    <loc>https://blog4j.me/tags/</loc>
   </url>
 </urlset>
