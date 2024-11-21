@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Infrastructure Engineer @ JPMorganChase</title>
+    <title>blog4j</title>
     <link>https://blog4j.me/</link>
-    <description>Recent content on Infrastructure Engineer @ JPMorganChase</description>
+    <description>Recent content on blog4j</description>
     <generator>Hugo -- 0.138.0</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 15 Nov 2024 00:00:00 +0000</lastBuildDate>
