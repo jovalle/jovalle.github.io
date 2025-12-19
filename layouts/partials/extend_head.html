@@ -1,0 +1,179 @@
+<style>
+/* Style toggle button */
+#style-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    transition: transform 0.2s;
+    user-select: none;
+    padding: 0;
+}
+
+#style-toggle:hover {
+    transform: scale(1.15);
+}
+
+#style-toggle:active {
+    transform: scale(0.9);
+}
+
+#style-toggle img {
+    width: 48px;
+    height: 48px;
+}
+
+/* Clickable profile */
+.profile .profile_inner {
+    cursor: pointer;
+}
+
+.profile .profile_inner img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile .profile_inner:hover img {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.profile .profile_inner:active img {
+    transform: scale(0.98);
+}
+</style>
+
+<script>
+(function() {
+    // Track if anime mode is active
+    let animeMode = false;
+    let animeCSSLink = null;
+
+    // Function to enable anime mode
+    function enableAnimeMode() {
+        if (!animeCSSLink) {
+            animeCSSLink = document.createElement('link');
+            animeCSSLink.rel = 'stylesheet';
+            animeCSSLink.href = '/css/anime.css';
+            document.head.appendChild(animeCSSLink);
+        }
+        animeMode = true;
+        updateToggleButton();
+        updatePersonalizedGreeting();
+    }
+
+    // Function to disable anime mode
+    function disableAnimeMode() {
+        if (animeCSSLink && animeCSSLink.parentNode) {
+            animeCSSLink.parentNode.removeChild(animeCSSLink);
+            animeCSSLink = null;
+        }
+        animeMode = false;
+        updateToggleButton();
+        removePersonalizedGreeting();
+    }
+
+    // Update personalized greeting
+    function updatePersonalizedGreeting() {
+        const subtitle = document.querySelector('.profile .profile_inner span');
+        if (subtitle && animeMode) {
+            subtitle.classList.add('personalized');
+            const greetingObj = getPersonalizedGreeting();
+            subtitle.setAttribute('data-greeting', greetingObj.greeting);
+            subtitle.setAttribute('data-welcome', greetingObj.welcome);
+        }
+    }
+
+    // Remove personalized greeting
+    function removePersonalizedGreeting() {
+        const subtitle = document.querySelector('.profile .profile_inner span');
+        if (subtitle) {
+            subtitle.classList.remove('personalized');
+            subtitle.removeAttribute('data-greeting');
+        }
+    }
+
+    // Function to toggle between modes
+    function toggleStyle() {
+        if (animeMode) {
+            disableAnimeMode();
+        } else {
+            enableAnimeMode();
+        }
+    }
+
+    // Get personalized greeting based on visitor info
+    function getPersonalizedGreeting() {
+        const hour = new Date().getHours();
+        let timeGreeting = 'Hello';
+
+        if (hour >= 5 && hour < 12) timeGreeting = 'Good morning';
+        else if (hour >= 12 && hour < 17) timeGreeting = 'Good afternoon';
+        else if (hour >= 17 && hour < 22) timeGreeting = 'Good evening';
+        else timeGreeting = 'Hello'; // Late night/early morning
+
+        return {
+            greeting: `${timeGreeting}, visitor.`,
+            welcome: 'Welcome to my blog.'
+        };
+    }
+
+    // Update toggle button icon
+    function updateToggleButton() {
+        const button = document.getElementById('style-toggle');
+        if (button) {
+            const emoji = animeMode ? '1f304' : '1f305';
+            button.innerHTML = `
+                <picture>
+                    <source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/${emoji}/512.webp" type="image/webp">
+                    <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/${emoji}/512.gif" alt="${animeMode ? '🌄' : '🌅'}" width="48" height="48">
+                </picture>
+            `;
+            button.title = animeMode ? 'Switch to Normal Mode' : 'Switch to Anime Mode';
+        }
+    }
+
+    // Preload anime mode image in background
+    function preloadAnimeImage() {
+        const img = new Image();
+        img.src = '/images/caller.png';
+    }
+
+    // Initialize on page load
+    if (animeMode) {
+        enableAnimeMode();
+    }
+
+    // Preload anime image immediately
+    preloadAnimeImage();
+
+    // Add toggle button and listeners when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        // Only show toggle on home page (check for profile element)
+        const profile = document.querySelector('.profile .profile_inner');
+        if (!profile) {
+            return; // Not on home page, exit early
+        }
+
+        // Create toggle button
+        const toggleButton = document.createElement('button');
+        toggleButton.id = 'style-toggle';
+        toggleButton.setAttribute('aria-label', 'Toggle profile style');
+        document.body.appendChild(toggleButton);
+        updateToggleButton();
+
+        // Add click listener to toggle button
+        toggleButton.addEventListener('click', toggleStyle);
+
+        // Add click listener to profile
+        profile.addEventListener('click', toggleStyle);
+    });
+})();
+</script>

@@ -1,0 +1,109 @@
+---
+# yaml-language-server: $schema=https://platen.io/schemas/config/schema.json
+baseURL: "https://jovalle.github.io"
+languageCode: en-us
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    anchorLineNos: true
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    noClasses: false
+    style: monokai
+menu:
+  main:
+    - identifier: home
+      name: Home
+      url: /
+      weight: 10
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 20
+    - identifier: blog
+      name: Blog
+      url: /posts/
+      weight: 30
+    - identifier: projects
+      name: Projects
+      url: /projects/
+      weight: 40
+minify:
+  disableXML: true
+  minifyOutput: true
+pagination:
+  pagerSize: 5
+params:
+  DateFormat: "January 2, 2006"
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowPostNavLinks: true
+  ShowReadingTime: true
+  ShowRssButtonInSectionTermList: true
+  ShowShareButtons: false
+  ShowWordCount: true
+  UseHugoToc: true
+  assets:
+    favicon16x16: "/favicon-16x16.png"
+    favicon32x32: "/favicon-32x32.png"
+    apple_touch_icon: "/apple-touch-icon.png"
+  author: &name "Jay Ovalle"
+  comments: false
+  cover:
+    hidden: true
+    hiddenInList: true
+    hiddenInSingle: true
+  defaultTheme: dark
+  description: &header jovalle
+  disableScrollToTop: false
+  disableSpecial1stPost: false
+  disableThemeToggle: false
+  env: production
+  fuseOpts:
+    distance: 1000
+    isCaseSensitive: false
+    keys: ["title", "permalink", "summary", "content"]
+    location: 0
+    minMatchCharLength: 0
+    shouldSort: true
+    threshold: 0.4
+  hideSummary: false
+  hidemeta: false
+  homeInfoParams:
+    Content: &title "Infrastructure Developer"
+    Title: *name
+  keywords: [Blog]
+  label:
+    icon: /apple-touch-icon.png
+    iconHeight: 35
+    text: jovalle
+  profileMode:
+    enabled: true
+    imageHeight: 240
+    imageTitle: *name
+    imageUrl: "/android-chrome-512x512.png"
+    imageWidth: 240
+    subtitle: |
+      Infrastructure Engineer | Homelabber | Gamer
+
+      Anti-Enshittification Advocate
+    title: *name
+  social:
+    - name: email
+      url: "&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#106;&#97;&#121;&#64;&#116;&#101;&#99;&#104;&#110;&#46;&#105;&#115;"
+    - name: github
+      url: "https://github.com/jovalle"
+    - name: linkedin
+      url: "https://www.linkedin.com/in/jayovalle/"
+    - name: instagram
+      url: "https://instagram.com/jayroglyph/"
+  title: *name
+pygmentsCodeFences: true
+pygmentsCodeFencesGuessSyntax: true
+pygmentsStyle: trac
+pygmentsUseClasses: true
+theme: PaperMod
+title: *header

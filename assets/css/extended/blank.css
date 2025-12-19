@@ -1,0 +1,123 @@
+/*
+This is just a placeholder blank stylesheet so as to support adding custom styles bundled with theme's default styles
+
+Read https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#bundling-custom-css-with-themes-assets for more info
+*/
+
+/* Make logo circular */
+.logo a img[aria-label="logo"] {
+  border-radius: 50% !important;
+}
+
+/* All post images - centered with rounded corners */
+.post-content img {
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 8px;
+  max-width: 100%;
+}
+
+/* Table styling */
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.post-content table th {
+  background: var(--code-bg);
+  font-weight: 600;
+  text-align: left;
+}
+
+.post-content table td,
+.post-content table th {
+  padding: 12px 16px;
+}
+
+.post-content table tr:hover {
+  background: var(--code-bg);
+  transition: background 0.2s ease;
+}
+
+/* Section spacing */
+.post-content h2 {
+  margin-top: 2.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.post-content h3 {
+  margin-top: 2rem;
+  color: var(--primary);
+}
+
+.post-content h4 {
+  margin-top: 1.5rem;
+  color: var(--secondary);
+}
+
+/* Remove bullets from all lists in travel section */
+#travel ul,
+#travel ol {
+  list-style-type: none;
+  padding-left: 1em;
+}
+
+/* Horizontal rule styling */
+.post-content hr {
+  margin: 2.5rem 0;
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+}
+
+/* Fun fact box styling */
+.fun-fact {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--primary-rgb, 30, 30, 46), 0.5),
+    rgba(var(--tertiary-rgb, 45, 45, 68), 0.3)
+  );
+  border-left: 4px solid var(--accent, #7aa2f7);
+  padding: 1em 1.5em;
+  margin: 1.5em 0;
+  border-radius: 8px;
+  font-style: italic;
+}
+
+.fun-fact::before {
+  content: "💡 Fun Fact: ";
+  font-weight: bold;
+  font-style: normal;
+  color: var(--accent, #7aa2f7);
+}
+
+/* Scroll-to-top button (PaperMod: .top-link) */
+.top-link {
+  bottom: 84px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--border);
+  background: var(--entry);
+}
+
+.top-link:hover {
+  background: var(--code-bg);
+}
+
+.top-link__icon {
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 700;
+  color: var(--primary);
+  transform: translateY(-1px);
+  user-select: none;
+}
+
+.linktree-label {
+  flex: 1 1 auto;
+  font-weight: 600;
+}

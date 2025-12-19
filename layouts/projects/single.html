@@ -1,0 +1,122 @@
+{{- define "main" }}
+
+<style>
+  .projects-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 20px;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .project-card {
+    background: var(--entry);
+    border-radius: 8px;
+    padding: 0;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    border: 1px solid var(--border);
+    display: block;
+  }
+
+  .project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border-color: var(--tertiary);
+  }
+
+  .project-thumbnail {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, var(--tertiary) 0%, var(--primary) 100%);
+    background-size: cover;
+    background-position: center;
+  }
+
+  .project-info {
+    padding: 18px 18px 16px;
+  }
+
+  .project-title {
+    font-size: 1.2em;
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: var(--primary);
+  }
+
+  .project-description {
+    color: var(--secondary);
+    line-height: 1.6;
+    margin: 0;
+    font-size: 0.95em;
+  }
+
+  .projects-footer {
+    margin-top: 18px;
+    color: var(--secondary);
+  }
+
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+<article class="post-single">
+  <header class="post-header">
+    {{ partial "breadcrumbs.html" . }}
+    <h1 class="post-title">{{ .Title }}</h1>
+    {{- with .Summary }}
+    <div class="post-description">{{ . | markdownify }}</div>
+    {{- end }}
+  </header>
+
+  {{- if .Content }}
+  <div class="post-content">
+    {{- if not (.Param "disableAnchoredHeadings") }} {{- partial "anchored_headings.html" .Content -}} {{- else }}{{
+    .Content }}{{ end }}
+  </div>
+  {{- end }}
+
+  <div class="projects-container">
+    <div class="projects-grid">
+      {{- $projects := .Site.Data.projects.featured -}} {{- with .Site.Data.projects_generated }} {{- with .featured }}
+      {{- $projects = . -}} {{- end -}} {{- end -}} {{- range $projects }} {{- $name := .name -}} {{- $slugSrc := (.slug
+      | default $name) -}} {{- $slugSrc = replaceRE "^[^a-zA-Z0-9]+" "" $slugSrc -}} {{- $slug := $slugSrc | urlize -}}
+      {{- $thumbJpg := printf "/images/projects/%s.jpg" $slug -}} {{- $thumbJpeg := printf "/images/projects/%s.jpeg"
+      $slug -}} {{- $thumbPng := printf "/images/projects/%s.png" $slug -}} {{- $thumbSvg := printf
+      "/images/projects/%s.svg" $slug -}} {{- $description := .description | default "" -}} {{- if eq (trim $description
+      " \n\t") "" -}} {{- $description = (index (where $.Site.Data.projects.featured "name" $name) 0).description |
+      default "" -}} {{- end -}} {{- $subtitle := $description | replaceRE "^(.*?)([\\.\\!\\?]).*$" "${1}${2}" -}}
+      <a class="project-card" href="{{ .repo }}" target="_blank" rel="noopener noreferrer">
+        <div
+          class="project-thumbnail"
+          style="background-image: url('{{ $thumbJpg }}'), url('{{ $thumbJpeg }}'), url('{{ $thumbPng }}'), url('{{ $thumbSvg }}'), linear-gradient(135deg, var(--tertiary) 0%, var(--primary) 100%);"
+        ></div>
+        <div class="project-info">
+          <div class="project-title">{{ $name }}</div>
+          <p class="project-description">{{ $subtitle }}</p>
+        </div>
+      </a>
+      {{- end }}
+    </div>
+
+    <div class="projects-footer">
+      More on <a href="https://github.com/jovalle" target="_blank" rel="noopener noreferrer">GitHub</a>.
+    </div>
+  </div>
+</article>
+
+{{- end }}

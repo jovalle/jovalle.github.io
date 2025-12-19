@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 110 600 400">
+ <defs>
+  <linearGradient id="technisGradient" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#00E0E0;stop-opacity:1" /><stop offset="100%" style="stop-color:#007BFF;stop-opacity:1" /></linearGradient></defs>
+
+
+ <g id="scaleWrap" transform="scale(6.0)"><g>
+  <title>Layer 1</title>
+  <rect fill="none" width="100" height="100" id="svg_1" y="0" x="0" stroke="none" />
+  <g transform="translate(0 0) scale(1.25 1.25)" fill="#ffffff" id="svg_2" stroke-width="0">
+   <path fill="url(#technisGradient)" transform="translate(0 0) scale(1.25 1.25)" d="m18.84364,18.17974l0,11.87l-11.87,0l0,-11.87l11.87,0m2.1,-2.1l-16.07,0l0,16.06l16.07,0l0,-16.06zm17.11,2.1l0,11.87l-11.86,0l0,-11.87l11.86,0m2.1,-2.1l-16.03,0l0,16.06l16,0l0,-16.06l0.03,0zm17.12,2.1l0,11.87l-11.87,0l0,-11.87l11.87,0m2.1,-2.1l-16.07,0l0,16.06l16.07,0l0,-16.06zm-21.32,21.31l0,11.87l-11.86,0l0,-11.87l11.86,0m2.1,-2.1l-16.03,0l0,16.07l16,0l0,-16.06l0.03,-0.01z" id="svg_4" stroke="url(#technisGradient)" stroke-width="1" stroke-linejoin="round" stroke-linecap="round" />
+  </g>
+ </g>
+</g></svg>

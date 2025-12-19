@@ -1,0 +1,24 @@
+# OS
+.DS_Store
+
+# Hugo generated content
+public/
+resources/_gen/
+.hugo_build.lock
+
+# Node.js
+node_modules/
+*.log
+
+# Local config
+config.local.yaml
+
+# Misc
+misc/
+.cache/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

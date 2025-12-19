@@ -1,0 +1,169 @@
+{{- define "main" }}
+
+<style>
+/* About page photo hover animation and click toggle */
+.post-content img[src*="animated-cropped"],
+.post-content img[src*="mugshot"] {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-content img[src*="animated-cropped"]:hover,
+.post-content img[src*="mugshot"]:hover {
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.post-content img[src*="animated-cropped"]:active,
+.post-content img[src*="mugshot"]:active {
+  transform: scale(0.98);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const profileImg = document.querySelector('.post-content img[src*="animated-cropped"]');
+  if (profileImg) {
+    let isOriginal = true;
+    const originalSrc = profileImg.src;
+    const mugshotSrc = '/images/mugshot.jpg';
+
+    profileImg.addEventListener('click', function() {
+      if (isOriginal) {
+        profileImg.src = mugshotSrc;
+      } else {
+        profileImg.src = originalSrc;
+      }
+      isOriginal = !isOriginal;
+    });
+  }
+});
+</script>
+
+<article class="post-single">
+  <div class="post-content">
+    {{- if not (.Param "disableAnchoredHeadings") }}
+    {{- partial "anchored_headings.html" .Content -}}
+    {{- else }}{{ .Content }}{{ end }}
+  </div>
+
+  {{- if or (findRE "```mermaid" .RawContent) (findRE "{{<.*mermaid.*>}}" .RawContent) }}
+  <!-- Load Mermaid.js for diagram rendering -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: '{{ if eq .Site.Params.defaultTheme "dark" }}dark{{ else }}default{{ end }}',
+      securityLevel: 'loose'
+    });
+  </script>
+  {{- end }}
+
+  {{ if .Params.showMap }}
+  <!-- Load Leaflet.js styles and scripts -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Initialize the map -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const map = L.map('map').setView([20, 0], 2); // Initialize map
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      // Add your locations
+      const locations = [
+        { name: 'Ansan, Korea', lat: 37.3219, lng: 126.8308 },
+        { name: 'Baltimore, MD', lat: 39.2904, lng: -76.6122 },
+        { name: 'Barcelona, Spain', lat: 41.3851, lng: 2.1734 },
+        { name: 'Beijing, China', lat: 39.9042, lng: 116.4074 },
+        { name: 'Boston, MA', lat: 42.3601, lng: -71.0589 },
+        { name: 'Buffalo, NY', lat: 42.8864, lng: -78.8784 },
+        { name: 'Cabo, Mexico', lat: 22.8905, lng: -109.9167 },
+        { name: 'Cartagena, Colombia', lat: 10.3910, lng: -75.4794 },
+        { name: 'Chicago, NY', lat: 41.8781, lng: -87.6298 },
+        { name: 'Cozumel, Mexico', lat: 20.4230, lng: -86.9223 },
+        { name: 'Durham, NC', lat: 35.9940, lng: -78.8986 },
+        { name: 'Hartford, CT', lat: 41.7637, lng: -72.6851 },
+        { name: 'Houston, TX', lat: 29.7604, lng: -95.3698 },
+        { name: 'Los Angeles, CA', lat: 34.0522, lng: -118.2437 },
+        { name: 'Lynchburg, TN', lat: 35.2836, lng: -86.3744 },
+        { name: 'Madrid, Spain', lat: 40.4168, lng: -3.7038 },
+        { name: 'Malaga, Spain', lat: 36.7213, lng: -4.4214 },
+        { name: 'Nashville, TN', lat: 36.1627, lng: -86.7816 },
+        { name: 'New Haven, CT', lat: 41.3083, lng: -72.9279 },
+        { name: 'New York, NY', lat: 40.7128, lng: -74.0060 },
+        { name: 'Newark, DE', lat: 39.6837, lng: -75.7497 },
+        { name: 'Newark, NJ', lat: 40.7357, lng: -74.1724 },
+        { name: 'Orlando, FL', lat: 28.5383, lng: -81.3792 },
+        { name: 'Philadelphia, PA', lat: 39.9526, lng: -75.1652 },
+        { name: 'Plano, TX', lat: 33.0198, lng: -96.6989 },
+        { name: 'Puerto Plata, DR', lat: 19.7969, lng: -70.6940 },
+        { name: 'Punta Cana, DR', lat: 18.5601, lng: -68.3725 },
+        { name: 'RTP, NC', lat: 35.9057, lng: -78.8657 },
+        { name: 'Raleigh, NC', lat: 35.7796, lng: -78.6382 },
+        { name: 'Roatan, Honduras', lat: 16.3298, lng: -86.5300 },
+        { name: 'Rochester, NY', lat: 43.1610, lng: -77.6109 },
+        { name: 'Salt Lake City, NY', lat: 40.7608, lng: -111.8910 },
+        { name: 'San Francisco de Macoris, DR', lat: 19.3092, lng: -70.2500 },
+        { name: 'San Francisco, CA', lat: 37.7749, lng: -122.4194 },
+        { name: 'San Juan, PR', lat: 18.4655, lng: -66.1057 },
+        { name: 'Santiago, DR', lat: 19.4326, lng: -70.7016 },
+        { name: 'Santo Domingo, DR', lat: 18.4626, lng: -69.9361 },
+        { name: 'Seoul, Korea', lat: 37.5665, lng: 126.9780 },
+        { name: 'Sevilla, Spain', lat: 37.3891, lng: -5.9845 },
+        { name: 'St. Louis, MO', lat: 38.6270, lng: -90.1994 },
+        { name: 'Syracuse, NY', lat: 43.0481, lng: -76.1474 },
+        { name: 'Tokyo, Japan', lat: 35.6895, lng: 139.6917 },
+        { name: 'Toledo, Spain', lat: 39.8628, lng: -4.0273 },
+        { name: 'Washington, DC', lat: 38.9072, lng: -77.0369 },
+        { name: 'Wilmington, DE', lat: 39.7391, lng: -75.5398 },
+      ];
+
+      // Calculate vertical offset
+      function calculateOffset(lat, zoom, map) {
+        const mapHeight = map.getSize().y; // Map height in pixels
+        const latOffset = (5 / 100) * mapHeight * (1 / Math.pow(2, zoom)); // Calculate downward offset
+        return lat - latOffset; // Subtract to move downward
+      }
+
+      // Add markers with offset
+      function addMarkers() {
+        locations.forEach(loc => {
+          const adjustedLat = calculateOffset(loc.lat, map.getZoom(), map);
+          L.marker([adjustedLat, loc.lng])
+            .bindPopup(`<b>${loc.name}</b>`)
+            .addTo(map);
+        });
+      }
+
+      // Initial markers
+      addMarkers();
+
+      // Update markers on zoom
+      map.on('zoomend', () => {
+        map.eachLayer(layer => {
+          if (layer instanceof L.Marker) {
+            map.removeLayer(layer); // Clear existing markers
+          }
+        });
+        addMarkers(); // Re-add markers
+      });
+
+    });
+  </script>
+{{ end }}
+
+  <footer class="post-footer">
+    {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
+    <ul class="post-tags">
+      {{- range ($.GetTerms $tags) }}
+      <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+      {{- end }}
+    </ul>
+  </footer>
+
+</article>
+
+{{- end }}{{/* end main */}}

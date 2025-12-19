@@ -1,0 +1,40 @@
+{
+  "featured": [
+    {
+      "name": ".jsh",
+      "slug": "jsh",
+      "repo": "https://github.com/jovalle/.jsh",
+      "description": "A collection of files to improve life in the shell"
+    },
+    {
+      "name": "technis",
+      "slug": "technis",
+      "repo": "https://github.com/jovalle/technis",
+      "description": "Home(lab) planet of sorts"
+    },
+    {
+      "name": "stargate",
+      "slug": "stargate",
+      "repo": "https://github.com/jovalle/stargate",
+      "description": "Provides a warp link strong enough to call ships to a planet's surface"
+    },
+    {
+      "name": "nexus",
+      "slug": "nexus",
+      "repo": "https://github.com/jovalle/nexus",
+      "description": "The heart of a Protoss base–I mean homelab."
+    },
+    {
+      "name": "mothership",
+      "slug": "mothership",
+      "repo": "https://github.com/jovalle/mothership",
+      "description": "Capital ship deployed to the frontline as the flagship of distant explorations."
+    },
+    {
+      "name": "watchtower",
+      "slug": "watchtower",
+      "repo": "https://github.com/jovalle/watchtower",
+      "description": "An orbital command center orchestrating home theater heroics against the onslaught of enshittification."
+    }
+  ]
+}

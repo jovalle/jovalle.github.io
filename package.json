@@ -1,0 +1,31 @@
+{
+  "name": "jovalle.github.io",
+  "version": "1.0.0",
+  "description": "Personal blog and portfolio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests to run\" && exit 0",
+    "prepare": "husky",
+    "commit": "commit",
+    "thumbnails": "node scripts/generate-project-thumbnails.mjs --thumbnails-only",
+    "descriptions": "node scripts/generate-project-thumbnails.mjs --descriptions-only --force-descriptions"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jovalle/jovalle.github.io.git"
+  },
+  "keywords": [],
+  "author": "Jay Ovalle",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jovalle/jovalle.github.io/issues"
+  },
+  "homepage": "https://jovalle.github.io",
+  "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@commitlint/prompt-cli": "^20.1.0",
+    "husky": "^9.1.7",
+    "playwright": "^1.57.0"
+  }
+}

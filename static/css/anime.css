@@ -1,0 +1,86 @@
+/* Hide the name/title */
+.profile .profile_inner h1 {
+    display: none;
+}
+
+/* Profile container with relative positioning for overlay */
+.profile .profile_inner {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    display: inline-block;
+}
+
+/* Override circular profile image and resize */
+.profile img {
+    border-radius: 0 !important;
+    max-width: 100%;
+    height: auto !important;
+    width: 600px !important;
+    display: block;
+    content: url("/images/caller.png");
+}
+
+/* Anime-style subtitle overlay */
+.profile .profile_inner span {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: Arial, sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    width: 80%;
+    line-height: 1.4;
+    text-shadow:
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000,
+        -2px 0 0 #000,
+        2px 0 0 #000,
+        0 -2px 0 #000,
+        0 2px 0 #000;
+    font-size: 0;
+}
+
+.profile .profile_inner span::before {
+    content: "Welcome to my blog.";
+    font-size: 2rem;
+}
+
+/* Dynamic greeting - will be set via JavaScript */
+.profile .profile_inner span.personalized::before {
+    content: attr(data-greeting);
+    display: block;
+    animation: greetingDisplay 3s steps(1) forwards;
+}
+
+.profile .profile_inner span.personalized::after {
+    content: attr(data-welcome);
+    font-size: 2rem;
+    display: block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    top: 0;
+    opacity: 0;
+    animation: welcomeDisplay 3s steps(1) forwards;
+}
+
+@keyframes greetingDisplay {
+    0% { opacity: 1; }
+    66% { opacity: 1; }
+    66.01% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+@keyframes welcomeDisplay {
+    0% { opacity: 0; }
+    66% { opacity: 0; }
+    66.01% { opacity: 1; }
+    100% { opacity: 1; }
+}
