@@ -36,11 +36,6 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
-      - name: Generate project metadata
-        run: |
-          npm run thumbnails
-          npm run descriptions
-
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:

@@ -1,9 +1,13 @@
-.PHONY: help serve serve-drafts build clean install update-theme deploy dev lint check preview thumbnails descriptions
+.PHONY: help serve serve-drafts build clean install update-theme deploy dev lint check preview
 
 # Project variables
 GIT_ROOT := $(shell git rev-parse --show-toplevel)
 HUGO := hugo
 HUGO_PORT := 1313
+
+# Load environment variables from .env if it exists
+-include .env
+export
 
 # Default target
 .DEFAULT_GOAL := help
@@ -17,7 +21,7 @@ help:
 	@echo "  dev            - Alias for serve"
 	@echo ""
 	@echo "Build targets:"
-	@echo "  build          - Build the static site for production"
+	@echo "  build          - Build the static site for production (fetches GitHub data)"
 	@echo "  clean          - Remove generated files and caches"
 	@echo ""
 	@echo "Deployment targets:"
@@ -38,26 +42,16 @@ serve:
 dev: serve
 
 ## build: Build the static site locally
-build: clean thumbnails descriptions
+build: clean
 	@echo "Building Hugo site..."
 	$(HUGO) --minify
 	@echo "Build complete! Output in public/"
 
 ## preview: Build the static site for local preview (relative URLs)
-preview: clean thumbnails descriptions
+preview: clean
 	@echo "Building Hugo site for local preview..."
 	$(HUGO) --minify --config config.yaml,config.local.yaml --baseURL http://localhost:$(HUGO_PORT)/
 	@echo "Preview build complete! Output in public/"
-
-## thumbnails: Generate cached README thumbnails for featured projects
-thumbnails:
-	@echo "Generating project thumbnails (cached)..."
-	@npm run thumbnails
-
-## descriptions: Refresh featured project descriptions from GitHub
-descriptions:
-	@echo "Refreshing project descriptions..."
-	@npm run descriptions
 
 ## clean: Remove generated files
 clean:

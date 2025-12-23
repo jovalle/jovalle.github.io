@@ -1,76 +1,20 @@
-{{- define "main" }}
+{{- define "main" }} {{- $gitstoryCSS := resources.Get "css/gitstory.css" | resources.Minify -}}
+<link rel="stylesheet" href="{{ $gitstoryCSS.RelPermalink }}" />
 
 <style>
-  .projects-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px 20px;
-  }
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: 16px;
-  }
-
-  .project-card {
-    background: var(--entry);
-    border-radius: 8px;
-    padding: 0;
-    overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-    border: 1px solid var(--border);
-    display: block;
-  }
-
-  .project-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    border-color: var(--tertiary);
-  }
-
-  .project-thumbnail {
-    width: 100%;
-    height: 180px;
-    background: linear-gradient(135deg, var(--tertiary) 0%, var(--primary) 100%);
-    background-size: cover;
-    background-position: center;
-  }
-
-  .project-info {
-    padding: 18px 18px 16px;
-  }
-
-  .project-title {
-    font-size: 1.2em;
-    font-weight: 700;
-    margin: 0 0 6px;
-    color: var(--primary);
-  }
-
-  .project-description {
-    color: var(--secondary);
-    line-height: 1.6;
-    margin: 0;
-    font-size: 0.95em;
-  }
-
-  .projects-footer {
-    margin-top: 18px;
-    color: var(--secondary);
-  }
-
-  @media (max-width: 768px) {
-    .projects-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (min-width: 769px) and (max-width: 1024px) {
-    .projects-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  /* Remove header underlines globally */
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .post-content h2,
+  .post-content h3,
+  .post-content h4,
+  .post-content h5,
+  .post-content h6,
+  .post-title {
+    border-bottom: none !important;
   }
 </style>
 
@@ -85,38 +29,243 @@
 
   {{- if .Content }}
   <div class="post-content">
-    {{- if not (.Param "disableAnchoredHeadings") }} {{- partial "anchored_headings.html" .Content -}} {{- else }}{{
-    .Content }}{{ end }}
+    {{- if not (.Param "disableAnchoredHeadings") }} {{- partial "anchored_headings.html" .Content -}} {{- else }} {{
+    .Content }} {{- end }}
   </div>
-  {{- end }}
-
-  <div class="projects-container">
-    <div class="projects-grid">
-      {{- $projects := .Site.Data.projects.featured -}} {{- with .Site.Data.projects_generated }} {{- with .featured }}
-      {{- $projects = . -}} {{- end -}} {{- end -}} {{- range $projects }} {{- $name := .name -}} {{- $slugSrc := (.slug
-      | default $name) -}} {{- $slugSrc = replaceRE "^[^a-zA-Z0-9]+" "" $slugSrc -}} {{- $slug := $slugSrc | urlize -}}
-      {{- $thumbJpg := printf "/images/projects/%s.jpg" $slug -}} {{- $thumbJpeg := printf "/images/projects/%s.jpeg"
-      $slug -}} {{- $thumbPng := printf "/images/projects/%s.png" $slug -}} {{- $thumbSvg := printf
-      "/images/projects/%s.svg" $slug -}} {{- $description := .description | default "" -}} {{- if eq (trim $description
-      " \n\t") "" -}} {{- $description = (index (where $.Site.Data.projects.featured "name" $name) 0).description |
-      default "" -}} {{- end -}} {{- $subtitle := $description | replaceRE "^(.*?)([\\.\\!\\?]).*$" "${1}${2}" -}}
-      <a class="project-card" href="{{ .repo }}" target="_blank" rel="noopener noreferrer">
-        <div
-          class="project-thumbnail"
-          style="background-image: url('{{ $thumbJpg }}'), url('{{ $thumbJpeg }}'), url('{{ $thumbPng }}'), url('{{ $thumbSvg }}'), linear-gradient(135deg, var(--tertiary) 0%, var(--primary) 100%);"
-        ></div>
-        <div class="project-info">
-          <div class="project-title">{{ $name }}</div>
-          <p class="project-description">{{ $subtitle }}</p>
-        </div>
-      </a>
+  {{- end }} {{- $persona := .Params.persona -}} {{- $rhythm := .Params.rhythm -}} {{- $stats := .Params.stats -}} {{-
+  $skills := .Params.skills -}} {{- $weekdayStats := .Params.weekdayStats -}} {{- $projects := .Params.projects -}} {{-
+  if $persona }}
+  <!-- Developer Persona -->
+  <hr style="margin: 3em 0" />
+  <div class="gs-persona-card">
+    <div class="gs-persona-badge">Developer Persona</div>
+    <div class="gs-persona-emoji">{{ $persona.emoji }}</div>
+    <h3 class="gs-persona-title">{{ $persona.fullTitle }}</h3>
+    <p class="gs-persona-tagline">"{{ $persona.tagline }}"</p>
+    <div class="gs-persona-traits">
+      {{- range $persona.traits }}
+      <span class="gs-persona-trait">{{ . }}</span>
       {{- end }}
     </div>
+  </div>
+  {{- end }} {{- if $projects }}
+  <!-- Projects -->
+  <hr style="margin: 3em 0; opacity: 0.15" />
+  <h2 class="post-title" style="text-align: center; margin-bottom: 1em">Projects</h2>
+  <div class="gs-repos-grid">
+    {{- range $projects }}
+    <div class="gs-repo-card">
+      <div class="gs-repo-content">
+        <div class="gs-repo-header">
+          <div class="gs-repo-title">
+            <span>{{ .icon }}</span>
+            <span>{{ .name }}</span>
+          </div>
+        </div>
+        <div class="gs-repo-desc">{{ .description }}</div>
+        <div class="gs-repo-footer">
+          <div class="gs-repo-lang">
+            <div class="gs-repo-lang-dot" style="background: {{ .languageColor }};"></div>
+            <span>{{ .language }}</span>
+          </div>
+          <a href="{{ .repo }}" target="_blank" rel="noopener noreferrer" class="gs-repo-link">
+            <span style="font-size: 0.7rem">View →</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    {{- end }}
+  </div>
 
-    <div class="projects-footer">
-      More on <a href="https://github.com/jovalle" target="_blank" rel="noopener noreferrer">GitHub</a>.
+  <div style="text-align: center; margin: 3em 0">
+    <p style="color: var(--secondary); font-size: 0.875em">
+      View all projects on
+      <a
+        href="https://github.com/jovalle"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="color: #667eea; text-decoration: none; font-weight: 600"
+        >GitHub @jovalle</a
+      >
+    </p>
+  </div>
+  {{- end }} {{- if $rhythm }}
+  <!-- Creative Rhythm -->
+  <hr style="margin: 3em 0; opacity: 0.15" />
+  <h2 class="post-title" style="text-align: center; margin-bottom: 1em">Creative Rhythm</h2>
+  <div class="gs-rhythm-grid">
+    <div class="gs-rhythm-card">
+      <div class="gs-rhythm-icon-bg">🌙</div>
+      <div class="gs-stat-header">
+        <div class="gs-stat-icon" style="background: rgba(168, 85, 247, 0.2)">🕐</div>
+        <div class="gs-stat-label">Peak Time</div>
+      </div>
+      <div style="font-size: 1.5em; font-weight: 700; margin: 0.5em 0">{{ $rhythm.peakTime }}</div>
+      <div class="gs-stat-subtitle">{{ $rhythm.peakHours }}</div>
+    </div>
+
+    <div class="gs-rhythm-card">
+      <div class="gs-rhythm-icon-bg">📅</div>
+      <div class="gs-stat-header">
+        <div class="gs-stat-icon" style="background: rgba(34, 211, 238, 0.2)">📆</div>
+        <div class="gs-stat-label">Best Day</div>
+      </div>
+      <div style="font-size: 1.5em; font-weight: 700; margin: 0.5em 0">{{ $rhythm.bestDay }}</div>
+      <div class="gs-stat-subtitle">Most productive</div>
+    </div>
+
+    <div class="gs-rhythm-card">
+      <div class="gs-rhythm-icon-bg">🔥</div>
+      <div class="gs-stat-header">
+        <div class="gs-stat-icon" style="background: rgba(251, 146, 60, 0.2)">⚡</div>
+        <div class="gs-stat-label">Top Streak</div>
+      </div>
+      <div style="font-size: 1.5em; font-weight: 700; margin: 0.5em 0">
+        {{ $rhythm.bestStreak }} {{ $rhythm.bestStreakUnit }}
+      </div>
+      <div class="gs-stat-subtitle">Longest run</div>
     </div>
   </div>
+  {{- end }} {{- if $weekdayStats }}
+  <!-- Weekly Activity Chart -->
+  <div class="gs-chart-container">
+    <div class="gs-chart-title">Weekly Activity Pattern</div>
+    <div class="gs-bar-chart">
+      {{- $maxCommits := 0 -}} {{- range $weekdayStats -}} {{- if gt .commits $maxCommits -}} {{- $maxCommits = .commits
+      -}} {{- end -}} {{- end -}} {{- range $weekdayStats }} {{- $height := div (mul .commits 100) $maxCommits -}}
+      <div class="gs-bar-wrapper">
+        <div class="gs-bar{{ if .highlight }} highlight{{ end }}" style="height: {{ $height }}%;">
+          <div class="gs-bar-value">{{ .commits }}</div>
+        </div>
+        <div class="gs-bar-label">{{ .label }}</div>
+      </div>
+      {{- end }}
+    </div>
+  </div>
+  {{- end }} {{- if $skills }}
+  <!-- Growth Focus Areas -->
+  <hr style="margin: 3em 0; opacity: 0.15" />
+  <h2 class="post-title" style="text-align: center; margin-bottom: 1em">Growth Focus Areas</h2>
+  <div class="gs-radar-container">
+    <canvas id="skillsRadar" class="gs-radar-canvas" width="600" height="600"></canvas>
+  </div>
+  {{- end }}
 </article>
 
-{{- end }}
+{{- if $skills }}
+<script>
+  (function() {
+    const canvas = document.getElementById('skillsRadar');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    const centerX = 300;
+    const centerY = 300;
+    const radius = 200;
+    const pointColor = '#667eea';
+
+    const skills = {{ $skills | jsonify | safeJS }};
+    const numSides = skills.length;
+    const angleStep = (Math.PI * 2) / numSides;
+
+    // Draw concentric circles
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.lineWidth = 1;
+    for (let i = 1; i <= 5; i++) {
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, (radius / 5) * i, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    // Draw axes and labels
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+    ctx.font = '14px sans-serif';
+    ctx.textAlign = 'center';
+
+    for (let i = 0; i < numSides; i++) {
+      const angle = angleStep * i - Math.PI / 2;
+      const x = centerX + Math.cos(angle) * radius;
+      const y = centerY + Math.sin(angle) * radius;
+
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+
+      // Label
+      const labelX = centerX + Math.cos(angle) * (radius + 30);
+      const labelY = centerY + Math.sin(angle) * (radius + 30);
+      ctx.fillText(skills[i].name, labelX, labelY);
+    }
+
+    // Draw data polygon with semi-transparent fill
+    ctx.beginPath();
+    ctx.fillStyle = 'rgba(102, 126, 234, 0.15)';
+    ctx.strokeStyle = 'rgba(102, 126, 234, 0.6)';
+    ctx.lineWidth = 2;
+
+    const points = [];
+    for (let i = 0; i < numSides; i++) {
+      const angle = angleStep * i - Math.PI / 2;
+      const value = skills[i].value;
+      const distance = (radius * value) / 100;
+      const x = centerX + Math.cos(angle) * distance;
+      const y = centerY + Math.sin(angle) * distance;
+      points.push({ x, y, name: skills[i].name, value: skills[i].value });
+
+      if (i === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+    }
+
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // Draw points on top with unified color
+    points.forEach(point => {
+      ctx.save();
+      // Semi-transparent background circle
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+      ctx.beginPath();
+      ctx.arc(point.x, point.y, 7, 0, Math.PI * 2);
+      ctx.fill();
+      // Unified colored point
+      ctx.fillStyle = pointColor;
+      ctx.beginPath();
+      ctx.arc(point.x, point.y, 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    });
+
+    // Add mouseover tooltip functionality
+    canvas.addEventListener('mousemove', function(e) {
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+
+      let hoveredPoint = null;
+      for (const point of points) {
+        const dx = mouseX - point.x;
+        const dy = mouseY - point.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < 10) {
+          hoveredPoint = point;
+          break;
+        }
+      }
+
+      if (hoveredPoint) {
+        canvas.style.cursor = 'pointer';
+        canvas.title = `${hoveredPoint.name}: ${hoveredPoint.value}% comfort`;
+      } else {
+        canvas.style.cursor = 'default';
+        canvas.title = '';
+      }
+    });
+  })();
+</script>
+{{- end }} {{- end }}

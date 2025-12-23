@@ -102,6 +102,7 @@ Read https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#bundling-custom-cs
   padding: 0;
   border: 1px solid var(--border);
   background: var(--entry);
+  color: var(--primary);
 }
 
 .top-link:hover {
@@ -112,7 +113,7 @@ Read https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#bundling-custom-cs
   font-size: 22px;
   line-height: 1;
   font-weight: 700;
-  color: var(--primary);
+  color: inherit;
   transform: translateY(-1px);
   user-select: none;
 }

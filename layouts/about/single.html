@@ -1,50 +1,282 @@
 {{- define "main" }}
 
 <style>
-/* About page photo hover animation and click toggle */
-.post-content img[src*="animated-cropped"],
-.post-content img[src*="mugshot"] {
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+  /* Center the entire article content */
+  .post-single {
+    max-width: 100%;
+    margin: 0 auto;
+  }
 
-.post-content img[src*="animated-cropped"]:hover,
-.post-content img[src*="mugshot"]:hover {
-  transform: scale(1.05) rotate(2deg);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
+  /* Remove header underlines globally */
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .post-content h2,
+  .post-content h3,
+  .post-content h4,
+  .post-content h5,
+  .post-content h6,
+  .post-title {
+    border-bottom: none !important;
+  }
 
-.post-content img[src*="animated-cropped"]:active,
-.post-content img[src*="mugshot"]:active {
-  transform: scale(0.98);
-}
+  /* About page photo hover animation and click toggle */
+  .post-single img[src*='animated-cropped'],
+  .post-single img[src*='mugshot'] {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .post-single img[src*='animated-cropped']:hover,
+  .post-single img[src*='mugshot']:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .post-single img[src*='animated-cropped']:active,
+  .post-single img[src*='mugshot']:active {
+    transform: scale(0.98);
+  }
+
+  /* Back to Top Button - Position above TOC */
+  #top-link {
+    bottom: 6rem !important;
+    right: 2rem !important;
+    z-index: 10001 !important;
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 50% !important;
+    background: var(--primary) !important;
+    color: var(--theme) !important;
+    border: 2px solid var(--border) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    padding: 0 !important;
+  }
+
+  @media (max-width: 768px) {
+    #top-link {
+      bottom: 5rem !important;
+      right: 1rem !important;
+      width: 48px !important;
+      height: 48px !important;
+    }
+  }
+
+  /* TOC Overlay Styles */
+  .toc-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--theme);
+    border: 2px solid var(--border);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    z-index: 10001;
+  }
+
+  .toc-toggle span {
+    line-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    transform: translateY(-1px);
+  }
+
+  .toc-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .toc-overlay {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 100%;
+    max-width: 400px;
+    height: 100vh;
+    background: var(--entry);
+    border-left: 1px solid var(--border);
+    box-shadow: -4px 0 16px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease;
+    z-index: 10002;
+    overflow-y: auto;
+    padding: 2rem;
+  }
+
+  .toc-overlay.active {
+    right: 0;
+  }
+
+  .toc-overlay-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .toc-overlay-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .toc-close {
+    background: none;
+    border: none;
+    color: var(--content);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    line-height: 1;
+    transition: color 0.2s ease;
+  }
+
+  .toc-close:hover {
+    color: var(--primary);
+  }
+
+  .toc-overlay nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .toc-overlay nav li {
+    margin: 0.75rem 0;
+  }
+
+  .toc-overlay nav a {
+    color: var(--content);
+    text-decoration: none;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+    display: block;
+    padding: 0.25rem 0;
+    /* Touch-friendly tap targets on mobile */
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .toc-overlay nav a:hover,
+  .toc-overlay nav a:active {
+    color: var(--primary);
+    padding-left: 0.5rem;
+  }
+
+  .toc-overlay nav ul ul {
+    margin-left: 1.25rem;
+    margin-top: 0.5rem;
+  }
+
+  .toc-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 10000;
+  }
+
+  .toc-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @media (max-width: 768px) {
+    .toc-overlay {
+      max-width: 100%;
+      padding: 1.5rem;
+      right: -100%;
+    }
+
+    .toc-toggle {
+      bottom: 1rem;
+      right: 1rem;
+      width: 48px;
+      height: 48px;
+      font-size: 1.25rem;
+    }
+
+    .toc-overlay nav a {
+      /* Larger tap targets on mobile */
+      padding: 0.5rem 0;
+      min-height: 48px;
+      font-size: 1.05rem;
+    }
+
+    .toc-close {
+      /* Larger touch target */
+      padding: 0.75rem;
+      font-size: 2rem;
+    }
+
+    .toc-overlay-header {
+      margin-bottom: 1.25rem;
+    }
+  }
 </style>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const profileImg = document.querySelector('.post-content img[src*="animated-cropped"]');
-  if (profileImg) {
-    let isOriginal = true;
-    const originalSrc = profileImg.src;
-    const mugshotSrc = '/images/mugshot.jpg';
-
-    profileImg.addEventListener('click', function() {
-      if (isOriginal) {
-        profileImg.src = mugshotSrc;
-      } else {
-        profileImg.src = originalSrc;
-      }
-      isOriginal = !isOriginal;
-    });
-  }
-});
-</script>
-
 <article class="post-single">
+  <!-- TOC Toggle Button -->
+  <button class="toc-toggle" aria-label="Toggle Table of Contents">
+    <span>☰</span>
+  </button>
+
+  <!-- TOC Backdrop -->
+  <div class="toc-backdrop"></div>
+
+  <!-- TOC Overlay -->
+  <div class="toc-overlay">
+    <div class="toc-overlay-header">
+      <h3>Table of Contents</h3>
+      <button class="toc-close" aria-label="Close Table of Contents">&times;</button>
+    </div>
+    <nav>{{ .TableOfContents }}</nav>
+  </div>
+
+  {{- $profile := .Params.profile -}} {{- if $profile }}
+  <!-- Profile Section -->
+  <div style="text-align: center">
+    <img
+      src="{{ $profile.image }}"
+      alt="{{ $profile.name }}"
+      style="border-radius: 50%; width: 240px; height: 240px; display: block; margin: 0 auto"
+    />
+  </div>
+
+  <div style="text-align: center; margin: 2em 0">
+    <h2 style="margin-bottom: 0.5em">{{ $profile.name }}</h2>
+    <p style="font-size: 1.1em; margin: 0.5em 0">{{ $profile.tagline }}</p>
+    <p style="color: var(--secondary); margin: 0.5em 0">{{ $profile.details | safeHTML }}</p>
+  </div>
+  {{- end }}
+
+  <hr style="margin: 2em 0; opacity: 0.15" />
+
   <div class="post-content">
-    {{- if not (.Param "disableAnchoredHeadings") }}
-    {{- partial "anchored_headings.html" .Content -}}
-    {{- else }}{{ .Content }}{{ end }}
+    {{- if not (.Param "disableAnchoredHeadings") }} {{- partial "anchored_headings.html" .Content -}} {{- else }}{{
+    .Content }}{{ end }}
   </div>
 
   {{- if or (findRE "```mermaid" .RawContent) (findRE "{{<.*mermaid.*>}}" .RawContent) }}
@@ -54,12 +286,10 @@ document.addEventListener('DOMContentLoaded', function() {
     mermaid.initialize({
       startOnLoad: true,
       theme: '{{ if eq .Site.Params.defaultTheme "dark" }}dark{{ else }}default{{ end }}',
-      securityLevel: 'loose'
+      securityLevel: 'loose',
     });
   </script>
-  {{- end }}
-
-  {{ if .Params.showMap }}
+  {{- end }} {{ if .Params.showMap }}
   <!-- Load Leaflet.js styles and scripts -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -67,68 +297,19 @@ document.addEventListener('DOMContentLoaded', function() {
   <!-- Initialize the map -->
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      const map = L.map('map').setView([20, 0], 2); // Initialize map
+      const map = L.map('map').setView([20, 0], 2);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
 
-      // Add your locations
-      const locations = [
-        { name: 'Ansan, Korea', lat: 37.3219, lng: 126.8308 },
-        { name: 'Baltimore, MD', lat: 39.2904, lng: -76.6122 },
-        { name: 'Barcelona, Spain', lat: 41.3851, lng: 2.1734 },
-        { name: 'Beijing, China', lat: 39.9042, lng: 116.4074 },
-        { name: 'Boston, MA', lat: 42.3601, lng: -71.0589 },
-        { name: 'Buffalo, NY', lat: 42.8864, lng: -78.8784 },
-        { name: 'Cabo, Mexico', lat: 22.8905, lng: -109.9167 },
-        { name: 'Cartagena, Colombia', lat: 10.3910, lng: -75.4794 },
-        { name: 'Chicago, NY', lat: 41.8781, lng: -87.6298 },
-        { name: 'Cozumel, Mexico', lat: 20.4230, lng: -86.9223 },
-        { name: 'Durham, NC', lat: 35.9940, lng: -78.8986 },
-        { name: 'Hartford, CT', lat: 41.7637, lng: -72.6851 },
-        { name: 'Houston, TX', lat: 29.7604, lng: -95.3698 },
-        { name: 'Los Angeles, CA', lat: 34.0522, lng: -118.2437 },
-        { name: 'Lynchburg, TN', lat: 35.2836, lng: -86.3744 },
-        { name: 'Madrid, Spain', lat: 40.4168, lng: -3.7038 },
-        { name: 'Malaga, Spain', lat: 36.7213, lng: -4.4214 },
-        { name: 'Nashville, TN', lat: 36.1627, lng: -86.7816 },
-        { name: 'New Haven, CT', lat: 41.3083, lng: -72.9279 },
-        { name: 'New York, NY', lat: 40.7128, lng: -74.0060 },
-        { name: 'Newark, DE', lat: 39.6837, lng: -75.7497 },
-        { name: 'Newark, NJ', lat: 40.7357, lng: -74.1724 },
-        { name: 'Orlando, FL', lat: 28.5383, lng: -81.3792 },
-        { name: 'Philadelphia, PA', lat: 39.9526, lng: -75.1652 },
-        { name: 'Plano, TX', lat: 33.0198, lng: -96.6989 },
-        { name: 'Puerto Plata, DR', lat: 19.7969, lng: -70.6940 },
-        { name: 'Punta Cana, DR', lat: 18.5601, lng: -68.3725 },
-        { name: 'RTP, NC', lat: 35.9057, lng: -78.8657 },
-        { name: 'Raleigh, NC', lat: 35.7796, lng: -78.6382 },
-        { name: 'Roatan, Honduras', lat: 16.3298, lng: -86.5300 },
-        { name: 'Rochester, NY', lat: 43.1610, lng: -77.6109 },
-        { name: 'Salt Lake City, NY', lat: 40.7608, lng: -111.8910 },
-        { name: 'San Francisco de Macoris, DR', lat: 19.3092, lng: -70.2500 },
-        { name: 'San Francisco, CA', lat: 37.7749, lng: -122.4194 },
-        { name: 'San Juan, PR', lat: 18.4655, lng: -66.1057 },
-        { name: 'Santiago, DR', lat: 19.4326, lng: -70.7016 },
-        { name: 'Santo Domingo, DR', lat: 18.4626, lng: -69.9361 },
-        { name: 'Seoul, Korea', lat: 37.5665, lng: 126.9780 },
-        { name: 'Sevilla, Spain', lat: 37.3891, lng: -5.9845 },
-        { name: 'St. Louis, MO', lat: 38.6270, lng: -90.1994 },
-        { name: 'Syracuse, NY', lat: 43.0481, lng: -76.1474 },
-        { name: 'Tokyo, Japan', lat: 35.6895, lng: 139.6917 },
-        { name: 'Toledo, Spain', lat: 39.8628, lng: -4.0273 },
-        { name: 'Washington, DC', lat: 38.9072, lng: -77.0369 },
-        { name: 'Wilmington, DE', lat: 39.7391, lng: -75.5398 },
-      ];
+      const locations = {{ .Params.travelLocations | jsonify | safeJS }};
 
-      // Calculate vertical offset
       function calculateOffset(lat, zoom, map) {
-        const mapHeight = map.getSize().y; // Map height in pixels
-        const latOffset = (5 / 100) * mapHeight * (1 / Math.pow(2, zoom)); // Calculate downward offset
-        return lat - latOffset; // Subtract to move downward
+        const mapHeight = map.getSize().y;
+        const latOffset = (5 / 100) * mapHeight * (1 / Math.pow(2, zoom));
+        return lat - latOffset;
       }
 
-      // Add markers with offset
       function addMarkers() {
         locations.forEach(loc => {
           const adjustedLat = calculateOffset(loc.lat, map.getZoom(), map);
@@ -138,22 +319,574 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       }
 
-      // Initial markers
       addMarkers();
 
-      // Update markers on zoom
       map.on('zoomend', () => {
         map.eachLayer(layer => {
           if (layer instanceof L.Marker) {
-            map.removeLayer(layer); // Clear existing markers
+            map.removeLayer(layer);
           }
         });
-        addMarkers(); // Re-add markers
+        addMarkers();
       });
 
+      // Move Travel extras (podiums + bucket list) directly under the map,
+      // so they appear within the Travel section instead of at the page end.
+      const travelExtras = document.getElementById('travel-extras');
+      const mapEl = document.getElementById('map');
+      if (travelExtras && mapEl) {
+        mapEl.insertAdjacentElement('afterend', travelExtras);
+      }
     });
   </script>
-{{ end }}
+
+  <!-- Travel Podiums and Split-Flap Display -->
+  {{- $domesticPodium := .Params.domesticPodium -}} {{- $internationalPodium := .Params.internationalPodium -}} {{-
+  $bucketList := .Params.bucketList -}} {{- if or $domesticPodium $internationalPodium $bucketList }}
+  <style>
+    .travel-podiums-container {
+      margin: 2rem 0;
+    }
+
+    .podiums-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+      max-width: 800px;
+    }
+
+    .podium-card {
+      background: var(--entry);
+      border-radius: 12px;
+      padding: 0 1rem 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .podium-card-title {
+      text-align: center;
+      margin: 0 0 2rem 0;
+      font-size: 1.3rem;
+      color: var(--content);
+    }
+
+    .podium-display {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 1rem;
+      min-height: 200px;
+    }
+
+    .podium-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      max-width: 140px;
+      animation: podiumRise 0.8s ease-out backwards;
+    }
+
+    .podium-item:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+    .podium-item:nth-child(2) {
+      animation-delay: 0s;
+    }
+    .podium-item:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes podiumRise {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .podium-label {
+      background: var(--theme);
+      color: var(--entry);
+      padding: 0.75rem 0.5rem;
+      border-radius: 8px 8px 0 0;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.85rem;
+      width: 100%;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 2;
+    }
+
+    .podium-position {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--tertiary) 100%);
+      color: var(--theme);
+      padding: 0.5rem;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .podium-column {
+      width: 100%;
+      background: linear-gradient(180deg, var(--border) 0%, var(--secondary) 100%);
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      position: relative;
+      font-size: 2rem;
+    }
+
+    .podium-flag {
+      position: absolute;
+      left: 50%;
+      bottom: 6px;
+      transform: translateX(-50%);
+      line-height: 1;
+    }
+
+    .podium-rank-1 .podium-column {
+      height: 80px;
+      background: linear-gradient(180deg, #ffd700 0%, #ffa500 100%);
+    }
+
+    .podium-rank-1 .podium-position {
+      background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+      color: #000;
+    }
+
+    .podium-rank-1 .podium-label {
+      background: linear-gradient(135deg, #ffe55c 0%, #ffd700 100%);
+      color: #000;
+    }
+
+    .podium-rank-2 .podium-column {
+      height: 60px;
+      background: linear-gradient(180deg, #c0c0c0 0%, #a8a8a8 100%);
+    }
+
+    .podium-rank-2 .podium-position {
+      background: linear-gradient(135deg, #e8e8e8 0%, #c0c0c0 100%);
+      color: #000;
+    }
+
+    .podium-rank-2 .podium-label {
+      background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
+      color: #000;
+    }
+
+    .podium-rank-3 .podium-column {
+      height: 40px;
+      background: linear-gradient(180deg, #cd7f32 0%, #a0522d 100%);
+    }
+
+    .podium-rank-3 .podium-position {
+      background: linear-gradient(135deg, #cd7f32 0%, #a0522d 100%);
+      color: #fff;
+    }
+
+    .podium-rank-3 .podium-label {
+      background: linear-gradient(135deg, #e8a368 0%, #cd7f32 100%);
+      color: #000;
+    }
+
+    /* Split-Flap Board */
+    .bucket-list-section {
+      margin: 3rem 0 2rem;
+      background: var(--entry);
+      border-radius: 12px;
+      padding: 0.1rem 1rem 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .bucket-list-title {
+      text-align: center;
+      margin: 0 0 2rem 0;
+      font-size: 1.3rem;
+      color: var(--content);
+    }
+
+    .split-flap-board {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .flap-board-header {
+      text-align: center;
+      color: #ffa500;
+      font-size: 0.85rem;
+      font-weight: bold;
+      letter-spacing: 0.15em;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      font-family: 'Courier New', monospace;
+    }
+
+    .flap-display {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      flex-wrap: nowrap;
+      gap: 2px;
+      background: #000;
+      padding: 8px;
+      border-radius: 6px;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+    }
+
+    .flap-unit {
+      position: relative;
+      width: 38px;
+      height: 64px;
+    }
+
+    .flap-card {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #1a1a1a;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      padding: 8px;
+      font-size: 2.15rem;
+      line-height: 1;
+      font-weight: bold;
+      font-family: 'Helvetica Neue', Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+      color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+
+    /* Keep each flap as a single tile (no top/bottom split effect). */
+
+    .flap-card.flipping {
+      animation: flipCard 0.4s ease-in-out;
+    }
+
+    @keyframes flipCard {
+      0% {
+        transform: rotateX(0deg);
+      }
+      50% {
+        transform: rotateX(90deg);
+      }
+      100% {
+        transform: rotateX(0deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .podiums-grid {
+        gap: 2rem;
+      }
+
+      .podium-display {
+        min-height: 160px;
+      }
+
+      .podium-rank-1 .podium-column {
+        height: 70px;
+      }
+      .podium-rank-2 .podium-column {
+        height: 50px;
+      }
+      .podium-rank-3 .podium-column {
+        height: 35px;
+      }
+
+      .podium-label {
+        font-size: 0.75rem;
+        padding: 0.6rem 0.4rem;
+      }
+
+      .bucket-list-section {
+        padding: 1.5rem;
+      }
+
+      .split-flap-board {
+        padding: 1.5rem;
+      }
+
+      .flap-display {
+        padding: 6px;
+        gap: 1px;
+      }
+
+      .flap-unit {
+        width: 28px;
+        height: 58px;
+      }
+
+      .flap-card {
+        padding: 5px;
+        font-size: 1.75rem;
+      }
+    }
+  </style>
+
+  <div id="travel-extras" class="travel-podiums-container">
+    {{- if $domesticPodium }}
+    <div class="podiums-grid">
+      <div class="podium-card">
+        <h4 class="podium-card-title">🇺🇸 Domestic Podium</h4>
+        <div class="podium-display">
+          {{- $order := slice 2 1 3 -}} {{- range $order }} {{- $rank := . -}} {{- range $domesticPodium -}} {{- if eq
+          .rank $rank -}}
+          <div class="podium-item podium-rank-{{ .rank }}">
+            <div class="podium-label">{{ .city }}</div>
+            <div class="podium-position">{{ if eq .rank 1 }}1st{{ else if eq .rank 2 }}2nd{{ else }}3rd{{ end }}</div>
+            <div class="podium-column"><span class="podium-flag">{{ .flag }}</span></div>
+          </div>
+          {{- end -}} {{- end -}} {{- end -}}
+        </div>
+      </div>
+
+      {{- if $internationalPodium }}
+      <div class="podium-card">
+        <h4 class="podium-card-title">🌍 International Podium</h4>
+        <div class="podium-display">
+          {{- $order := slice 2 1 3 -}} {{- range $order }} {{- $rank := . -}} {{- range $internationalPodium -}} {{- if
+          eq .rank $rank -}}
+          <div class="podium-item podium-rank-{{ .rank }}">
+            <div class="podium-label">{{ .city }}</div>
+            <div class="podium-position">{{ if eq .rank 1 }}1st{{ else if eq .rank 2 }}2nd{{ else }}3rd{{ end }}</div>
+            <div class="podium-column"><span class="podium-flag">{{ .flag }}</span></div>
+          </div>
+          {{- end -}} {{- end -}} {{- end -}}
+        </div>
+      </div>
+      {{- end }}
+    </div>
+    {{- end }} {{- if $bucketList }}
+    <div class="bucket-list-section">
+      <h4 class="bucket-list-title">✈️ Next Destination</h4>
+      <div class="split-flap-board">
+        <div class="flap-display" id="flapBoard"></div>
+      </div>
+    </div>
+
+    <script>
+      (function() {
+        const destinations = {{ $bucketList | jsonify | safeJS }};
+        const SLOTS = 16;
+        const flapBoard = document.getElementById('flapBoard');
+
+        if (!flapBoard) return;
+
+        let currentIndex = 0;
+        let currentText = new Array(SLOTS).fill(' ');
+
+        // Initialize flap units
+        for (let i = 0; i < SLOTS; i++) {
+          const unit = document.createElement('div');
+          unit.className = 'flap-unit';
+
+          const card = document.createElement('div');
+          card.className = 'flap-card';
+          card.textContent = ' ';
+
+          unit.appendChild(card);
+          flapBoard.appendChild(unit);
+        }
+
+        const flapCards = flapBoard.querySelectorAll('.flap-card');
+
+        function shuffleInPlace(arr) {
+          for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+          }
+          return arr;
+        }
+
+        function splitGraphemes(str) {
+          if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+            const seg = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+            return Array.from(seg.segment(str), s => s.segment);
+          }
+          const raw = Array.from(str);
+          const combined = [];
+          const isRI = (cp) => cp >= 0x1F1E6 && cp <= 0x1F1FF; // Regional Indicator flags
+          for (let i = 0; i < raw.length; i++) {
+            const cur = raw[i];
+            const next = raw[i + 1];
+            const cp1 = cur.codePointAt(0);
+            const cp2 = next ? next.codePointAt(0) : 0;
+            if (isRI(cp1) && isRI(cp2)) {
+              combined.push(cur + next);
+              i++;
+            } else {
+              combined.push(cur);
+            }
+          }
+          return combined;
+        }
+
+        function formatText(city, flag) {
+          const text = city.toUpperCase() + ' ' + flag;
+          const chars = splitGraphemes(text);
+          const padding = Math.floor((SLOTS - chars.length) / 2);
+          const result = new Array(SLOTS).fill(' ');
+
+          for (let i = 0; i < chars.length && i + padding < SLOTS; i++) {
+            result[padding + i] = chars[i];
+          }
+
+          return result;
+        }
+
+        function flipCharacter(index, newChar, delay) {
+          const card = flapCards[index];
+
+          setTimeout(() => {
+            card.classList.add('flipping');
+
+            setTimeout(() => {
+              card.textContent = newChar;
+              currentText[index] = newChar;
+            }, 200);
+
+            setTimeout(() => {
+              card.classList.remove('flipping');
+            }, 400);
+          }, delay);
+        }
+
+        function updateDisplay() {
+          const dest = destinations[currentIndex];
+          const newText = formatText(dest.city, dest.flag);
+
+          let delay = 0;
+          for (let i = 0; i < SLOTS; i++) {
+            if (newText[i] !== currentText[i]) {
+              flipCharacter(i, newText[i], delay);
+              if (i % 2 === 1) {
+                delay += 70;
+              }
+            }
+          }
+        }
+
+        // Randomize itinerary order once at page load.
+        const order = shuffleInPlace(Array.from({ length: destinations.length }, (_, i) => i));
+        let orderPos = 0;
+        currentIndex = order.length ? order[0] : 0;
+
+        // Initial display
+        const initialText = formatText(destinations[currentIndex].city, destinations[currentIndex].flag);
+        initialText.forEach((char, i) => {
+          flapCards[i].textContent = char;
+          currentText[i] = char;
+        });
+
+        // Change destination every 4 seconds
+        setInterval(() => {
+          if (destinations.length <= 1) return;
+
+          orderPos = (orderPos + 1) % order.length;
+          currentIndex = order[orderPos];
+          updateDisplay();
+        }, 4000);
+      })();
+    </script>
+    {{- end }}
+  </div>
+  {{- end }} {{ end }} {{- if $profile }}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const profileImg = document.querySelector('.post-single img[src*="animated-cropped"]');
+      if (profileImg) {
+        let isOriginal = true;
+        const originalSrc = profileImg.src;
+        const mugshotSrc = '{{ $profile.mugshotImage }}';
+
+        profileImg.addEventListener('click', function () {
+          profileImg.src = isOriginal ? mugshotSrc : originalSrc;
+          isOriginal = !isOriginal;
+        });
+      }
+
+      // TOC Overlay functionality
+      const tocToggle = document.querySelector('.toc-toggle');
+      const tocOverlay = document.querySelector('.toc-overlay');
+      const tocClose = document.querySelector('.toc-close');
+      const tocBackdrop = document.querySelector('.toc-backdrop');
+
+      function openTOC() {
+        tocOverlay.classList.add('active');
+        tocBackdrop.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeTOC() {
+        tocOverlay.classList.remove('active');
+        tocBackdrop.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      tocToggle.addEventListener('click', openTOC);
+      tocClose.addEventListener('click', closeTOC);
+      tocBackdrop.addEventListener('click', closeTOC);
+
+      // Close TOC on link click
+      tocOverlay.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeTOC);
+      });
+
+      // Close TOC on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && tocOverlay.classList.contains('active')) {
+          closeTOC();
+        }
+      });
+
+      // Mobile swipe-to-close gesture
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      tocOverlay.addEventListener(
+        'touchstart',
+        (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        },
+        { passive: true },
+      );
+
+      tocOverlay.addEventListener(
+        'touchend',
+        (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        },
+        { passive: true },
+      );
+
+      function handleSwipe() {
+        const swipeThreshold = 100;
+        const swipeDistance = touchEndX - touchStartX;
+
+        // Swipe right to close
+        if (swipeDistance > swipeThreshold) {
+          closeTOC();
+        }
+      }
+    });
+  </script>
+  {{- end }}
 
   <footer class="post-footer">
     {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
@@ -163,7 +896,6 @@ document.addEventListener('DOMContentLoaded', function() {
       {{- end }}
     </ul>
   </footer>
-
 </article>
 
-{{- end }}{{/* end main */}}
+{{- end }}

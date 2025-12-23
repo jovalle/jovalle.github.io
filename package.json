@@ -6,9 +6,7 @@
   "scripts": {
     "test": "echo \"No tests to run\" && exit 0",
     "prepare": "husky",
-    "commit": "commit",
-    "thumbnails": "node scripts/generate-project-thumbnails.mjs --thumbnails-only",
-    "descriptions": "node scripts/generate-project-thumbnails.mjs --descriptions-only --force-descriptions"
+    "commit": "commit"
   },
   "repository": {
     "type": "git",

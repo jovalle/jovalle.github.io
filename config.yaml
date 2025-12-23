@@ -23,13 +23,13 @@ menu:
       name: About
       url: /about/
       weight: 20
-    - identifier: blog
-      name: Blog
-      url: /posts/
-      weight: 30
     - identifier: projects
       name: Projects
       url: /projects/
+      weight: 30
+    - identifier: blog
+      name: Blog
+      url: /posts/
       weight: 40
 minify:
   disableXML: true
@@ -89,7 +89,7 @@ params:
     subtitle: |
       Infrastructure Engineer | Homelabber | Gamer
 
-      Anti-Enshittification Advocate
+      Domesticated Partner | Cat Dad
     title: *name
   social:
     - name: email
